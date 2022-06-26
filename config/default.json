@@ -1,0 +1,5 @@
+{
+    "mongoUrl": "mongodb+srv://admin-hitesh:Hitesh7738@cluster0.yhlftd8.mongodb.net/?retryWrites=true&w=majority",
+    "baseUrl":  "http://localhost:5000/"
+    
+}
