@@ -1,5 +1,4 @@
 {
-    "mongoUrl": "mongodb+srv://admin-hitesh:Hitesh7738@cluster0.yhlftd8.mongodb.net/?retryWrites=true&w=majority",
-    "baseUrl":  "http://localhost:5000/"
-    
+    "mongoUrl": "mongodb+srv://hitesh7738:hitesh12345@cluster0.ux7f00p.mongodb.net/?retryWrites=true&w=majority",
+    "baseUrl":  "http://localhost:5000/"    
 }

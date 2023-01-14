@@ -32,6 +32,8 @@ const typeDefs = gql(`
     id: ID
   }
   type Mutation{
+    signUp (name: String, email: String, password: String): User
+    signIn (email: String, password: String): User
     createPin (input: CreatePinInput!): Pin
     deletePin (id: ID!, user: String!): Pin
     savedPin (input: CreatePinInput!): Pin
