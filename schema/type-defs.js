@@ -6,6 +6,7 @@ const typeDefs = gql(`
     id: ID
     name: String
     email: String!
+    token: String!
     password: String!
     savedPins: [Pin]
     myPins: [Pin]
@@ -19,7 +20,7 @@ const typeDefs = gql(`
   }
 
   type Query {
-    user: User!
+    user (email: String!): User!
     pins: [Pin]
     readPin (id: ID!): Pin
     userPins (user: String!): User
@@ -32,7 +33,7 @@ const typeDefs = gql(`
     id: ID
   }
   type Mutation{
-    signUp (name: String, email: String, password: String): User
+    signUp (name: String, email: String, password: String ): User
     signIn (email: String, password: String): User
     createPin (input: CreatePinInput!): Pin
     deletePin (id: ID!, user: String!): Pin
