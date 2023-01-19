@@ -1,6 +1,31 @@
 var { gql } = require('apollo-server');
 
 const typeDefs = gql(`
+
+  scalar Date 
+  type FollowUser {
+    id: ID
+    name: String!
+  }
+  type Comment {
+    id: ID!
+    message: String!
+    createdAt: Date!
+    UpdatedAt: Date!
+    user: User
+    userId: String
+    pin: Pin
+    pinId: ID!
+    parent: Comment
+    children: [Comment]
+    parentId: ID
+  }
+  type Like {
+    user: User
+    comment: Comment
+    userId: ID!
+    commentId: ID!
+  }
  
   type User {
     id: ID
@@ -10,6 +35,15 @@ const typeDefs = gql(`
     password: String!
     savedPins: [Pin]
     myPins: [Pin]
+    gender: String!
+    country: String!
+    language: String!
+    profile_img: String!
+    following: [FollowUser]
+    followers: [FollowUser]
+    about: String
+    comments: [Comment]
+    likes: [Like]
   }
   type Pin {
     id: ID
@@ -17,6 +51,8 @@ const typeDefs = gql(`
     description: String!
     img: String!
     user: String
+    tags: [String]
+    comments: [Comment]
   }
 
   type Query {

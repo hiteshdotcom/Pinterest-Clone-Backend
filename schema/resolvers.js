@@ -1,4 +1,6 @@
-const { GraphQLError } = require('graphql');
+const { GraphQLScalarType } = require('graphql');
+
+const { GraphQLError } = require("graphql");
 
 const { User, Pins } = require("../models/user");
 // const { Pins } = require("../models/pins");
@@ -9,6 +11,16 @@ const jwt = require("jsonwebtoken");
 
 const JSON_SECRET =
   "sdkfjbhbhs(*_)dfbsbdfkjbnksjbdfn!*&%ijbisdjbfikjbisdfjbijbsdifjb28uy345u3i4y59387654389$%@$%#@W";
+
+  const dateScalar = new GraphQLScalarType({
+  name: "Date",
+  parseValue(value) {
+    return new Date(value);
+  },
+  serialize(value) {
+    return value.toISOString();
+  },
+});
 
 const resolvers = {
   Query: {
@@ -23,9 +35,9 @@ const resolvers = {
     userPins: async (parent, { user }) => {
       return await User.findOne({ email: user });
     },
-    user: async (parent, {email}) => {
-      return await User.findOne({email})
-    }
+    user: async (parent, { email }) => {
+      return await User.findOne({ email });
+    },
   },
   Mutation: {
     signIn: async (parent, args) => {
@@ -54,7 +66,7 @@ const resolvers = {
             { id: user._id, email: user.email },
             JSON_SECRET
           );
-          user.token = token
+          user.token = token;
         }
       } catch (error) {
         throw new GraphQLError("Invalid Password", {
@@ -64,7 +76,7 @@ const resolvers = {
           },
         });
       }
-      return user
+      return user;
     },
     signUp: async (parent, args) => {
       const { name, email, password } = args;
@@ -86,12 +98,12 @@ const resolvers = {
         });
       }
       if (password.length < 6) {
-          throw new GraphQLError("Password is too small", {
-            extensions: {
-              code: "UNAUTHENTICATED",
-              http: { status: 401 },
-            },
-          });
+        throw new GraphQLError("Password is too small", {
+          extensions: {
+            code: "UNAUTHENTICATED",
+            http: { status: 401 },
+          },
+        });
       }
       let user = await User.findOne({ email });
       if (user) {
@@ -112,8 +124,8 @@ const resolvers = {
           { id: user._id, email: user.email },
           JSON_SECRET
         );
-        user.token = token
-        return user
+        user.token = token;
+        return user;
       } catch (error) {
         throw new GraphQLError(error.message, {
           extensions: {
@@ -203,6 +215,8 @@ const resolvers = {
       }
     },
   },
+  Date: dateScalar,
+
 };
 
 module.exports = { resolvers };
